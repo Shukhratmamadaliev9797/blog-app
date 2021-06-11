@@ -1,0 +1,76 @@
+.navbar {
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem;
+    a {
+      color: $color-grey;
+    }
+    &-logoBox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 8rem;
+      span {
+        font-size: 1.5rem;
+      }
+    }
+    &-menu {
+      ul {
+        display: flex;
+
+        li {
+          position: relative;
+          padding: 1rem;
+          margin-right: 1rem;
+          &:hover ul {
+            opacity: 1;
+            z-index: 1;
+          }
+          &:hover ul li {
+            animation: topIn 0.2s linear forwards;
+            z-index: 1222;
+          }
+          ul {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            opacity: 0;
+            transition: all 0.5s linear;
+            z-index: -10;
+            width: 100%;
+            li {
+              opacity: 0;
+              margin-bottom: 1rem;
+              transition: all 0.5s linear;
+            }
+          }
+          a {
+            color: #393e46;
+            i {
+              margin-right: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  &__bottom {
+    display: flex;
+    align-items: center;
+    background: #aa2d29;
+    padding: 2rem;
+    ul {
+      display: flex;
+
+      li {
+        margin-left: 5rem;
+        a {
+          color: #fff;
+        }
+      }
+    }
+  }
+}

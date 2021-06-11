@@ -1,0 +1,29 @@
+.newsBlog {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 22%;
+  margin: 3rem 2rem;
+  & > * {
+    margin-bottom: 1rem;
+  }
+  &__image {
+    overflow: hidden;
+    border-radius: 0.5rem;
+    height: 20rem;
+  }
+  &__category {
+    font-size: 1.5rem;
+  }
+  &__title {
+    color: $color-grey;
+    font-family: $font-title;
+  }
+  &__link {
+    display: flex;
+    justify-content: baseline;
+    a {
+      color: $color-primary;
+    }
+  }
+}

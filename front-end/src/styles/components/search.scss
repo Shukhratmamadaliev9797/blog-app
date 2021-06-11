@@ -1,0 +1,19 @@
+.search {
+  button {
+    padding: 0.8rem 1rem;
+    border: 1px solid #ddd;
+    font-size: 1.5rem;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    outline: none;
+  }
+  input {
+    padding: 0.8rem 1rem;
+    border: 1px solid #ddd;
+    font-size: 1.5rem;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    width: 30vw;
+    outline: none;
+  }
+}
