@@ -5,6 +5,7 @@
   "description": "this blog app project was made by Shukhrat Mamadaliev ",
   "main": "index.js",
   "scripts": {
+    "build": "cd front-end && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,5 +30,9 @@
   "devDependencies": {
     "eslint": "^7.28.0",
     "eslint-plugin-react": "^7.24.0"
+  },
+  "engines": {
+    "node": "12.4.0",
+    "npm": "6.9.0"
   }
 }
