@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "build": "cd front-end && npm install && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon --watch back-end --exec node --experimental-modules back-end/server.js"
   },
   "repository": {
     "type": "git",
