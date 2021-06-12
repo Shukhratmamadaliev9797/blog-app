@@ -19,17 +19,14 @@ mongoose.connect(process.env.MONGODB_URL || "mongodb://localhost/blog-app", {
 
 app.use("/api/users", userRouter);
 app.use("/api/news", newsRouter);
+app.use("/api/uploads", uploadRouter);
 
 const __dirname = path.resolve();
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 app.use(express.static(path.join(__dirname, "/front-end/build")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/front-end/build/index.html"));
-});
-app.use("/api/uploads", uploadRouter);
-// app.get("/", (req, res) => {
-//   res.send("Server is ready");
-// });
+app.get("*", (req, res) =>
+  res.sendFile(path.join(__dirname, "/front-end/build/index.html"))
+);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
