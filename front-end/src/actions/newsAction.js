@@ -16,11 +16,11 @@ import {
   NEWS_WRITE_SUCCESS,
 } from "../constants/newsConstants";
 
-export const listNews = () => {
+export const listNews = ({ writer = "" }) => {
   return async (dispatch) => {
     dispatch({ type: NEWS_LIST_REQUEST });
     try {
-      const { data } = await axios.get("/api/news");
+      const { data } = await axios.get(`/api/news?writer=${writer}`);
       dispatch({ type: NEWS_LIST_SUCCESS, payload: data });
     } catch (error) {
       dispatch({ type: NEWS_LIST_FAIL, payload: error.message });

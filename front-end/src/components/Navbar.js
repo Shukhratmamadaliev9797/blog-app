@@ -12,6 +12,7 @@ export default function Navbar() {
   const signOutHandler = () => {
     dispatch(signout());
   };
+
   return (
     <div className="navbar">
       <div className="navbar__top">
@@ -51,6 +52,18 @@ export default function Navbar() {
                 </Link>
               )}
             </li>
+            {userInfo && userInfo.isWriter && (
+              <li>
+                <Link to="/">
+                  <i className="fas fa-pencil-alt"></i>Writer
+                </Link>
+                <ul className="navbar__dropdown">
+                  <li style={{ animationDelay: ".3s" }}>
+                    <Link to="/newslist/writer">Articles</Link>
+                  </li>
+                </ul>
+              </li>
+            )}
             {userInfo && userInfo.isAdmin && (
               <li>
                 <Link to="/">
@@ -61,7 +74,7 @@ export default function Navbar() {
                     <Link to="/newslist">News List</Link>
                   </li>
                   <li style={{ animationDelay: ".9s" }}>
-                    <Link to="/">Users</Link>
+                    <Link to="/userlist">Users List</Link>
                   </li>
                 </ul>
               </li>

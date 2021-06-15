@@ -7,6 +7,7 @@ export const generateToken = (user) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      isWriter: user.isWriter,
     },
     process.env.JWT_SECRET || "somethingsecret",
     { expiresIn: "30d" }
@@ -39,5 +40,21 @@ export const isAdmin = (req, res, next) => {
     next();
   } else {
     res.status(401).send({ message: "Invalid Admin Token" });
+  }
+};
+
+export const isWriter = (req, res, next) => {
+  if (req.user && req.user.isWriter) {
+    next();
+  } else {
+    res.status(401).send({ message: "Invalid Writer Token" });
+  }
+};
+
+export const isAdminOrWriter = (req, res, next) => {
+  if ((req.user && req.user.isAdmin) || req.user.isWriter) {
+    next();
+  } else {
+    res.status(401).send({ message: "Invalid Admin/Writer Token" });
   }
 };

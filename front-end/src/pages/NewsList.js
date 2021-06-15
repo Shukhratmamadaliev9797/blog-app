@@ -8,7 +8,9 @@ import {
   NEWS_WRITE_RESET,
 } from "../constants/newsConstants";
 import { Link } from "react-router-dom";
+
 export default function NewsList(props) {
+  const writerMode = props.match.path.indexOf("/writer") >= 0;
   const dispatch = useDispatch();
   const newsLists = useSelector((state) => state.newsLists);
   const { loading, error, newsList } = newsLists;
@@ -27,6 +29,9 @@ export default function NewsList(props) {
     error: errorDelete,
     success: successDelete,
   } = newsDelete;
+
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { userInfo } = userSignIn;
   useEffect(() => {
     if (successNews) {
       dispatch({ type: NEWS_WRITE_RESET });
@@ -35,8 +40,16 @@ export default function NewsList(props) {
     if (successDelete) {
       dispatch({ type: NEWS_DELETE_RESET });
     }
-    dispatch(listNews());
-  }, [dispatch, createdNews, props.history, successNews, successDelete]);
+    dispatch(listNews({ writer: writerMode ? userInfo._id : "" }));
+  }, [
+    dispatch,
+    createdNews,
+    props.history,
+    successNews,
+    successDelete,
+    userInfo._id,
+    writerMode,
+  ]);
 
   const deleteHandler = (news) => {
     if (window.confirm("Are you sure to delete it?")) {

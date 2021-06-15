@@ -10,9 +10,9 @@ export default function NewsBlog() {
   const newsLists = useSelector((state) => state.newsLists);
   const { loading, error, newsList } = newsLists;
   useEffect(() => {
-    dispatch(listNews());
+    dispatch(listNews({}));
   }, [dispatch]);
-
+  console.log(newsList);
   const renderBlogs = () => {
     return newsList.map((news) => {
       return (

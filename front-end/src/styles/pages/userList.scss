@@ -1,0 +1,58 @@
+.userList {
+  margin: 2rem auto;
+  color: $color-grey;
+  &__title {
+    margin: 2rem 0;
+    font-size: 1.5rem;
+    font-family: $font-title;
+  }
+  &__user {
+    border: 1px solid #ddd;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    margin-bottom: 2rem;
+    border-radius: 0.5rem;
+    &-img {
+      width: 7%;
+    }
+    &-info {
+      display: flex;
+      flex-direction: column;
+
+      span:nth-child(1) {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      span:nth-child(2) {
+        font-size: 2rem;
+      }
+    }
+    &-action {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      button {
+        padding: 1rem;
+        border: 1px solid #ddd;
+        margin-bottom: 1rem;
+        border-radius: 0.5rem;
+        color: $color-white;
+        font-size: 1.5rem;
+        &:nth-child(1) {
+          background-image: radial-gradient(
+            circle farthest-corner at 12.3% 19.3%,
+            rgba(85, 88, 218, 1) 0%,
+            rgba(95, 209, 249, 1) 100.2%
+          );
+        }
+        &:nth-child(2) {
+          background: linear-gradient(25deg, #d64c7f, #ee4758 50%);
+        }
+      }
+    }
+  }
+}

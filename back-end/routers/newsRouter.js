@@ -2,13 +2,15 @@ import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import data from "../data.js";
 import News from "../models/newsModel.js";
-import { isAdmin, isAuth } from "../utils.js";
+import { isAdminOrWriter, isAdmin, isAuth } from "../utils.js";
 
 const newsRouter = express.Router();
 newsRouter.get(
   "/",
   expressAsyncHandler(async (req, res) => {
-    const newsList = await News.find({});
+    const writer = req.query.writer || "";
+    const writerFilter = writer ? { writer } : {};
+    const newsList = await News.find({ ...writerFilter });
     res.send(newsList);
   })
 );
@@ -36,10 +38,13 @@ newsRouter.get(
 newsRouter.post(
   "/",
   isAuth,
-  isAdmin,
+  isAdminOrWriter,
   expressAsyncHandler(async (req, res) => {
     const news = new News({
       title: "Sample Title" + Date.now(),
+      writer: req.user._id,
+      firstName: req.user.firstName,
+
       category: "Category",
       image1: "/images/news/news1.jpeg",
       paragraph1: "Paragraph 1",
@@ -54,7 +59,7 @@ newsRouter.post(
 newsRouter.put(
   "/:id",
   isAuth,
-  isAdmin,
+  isAdminOrWriter,
   expressAsyncHandler(async (req, res) => {
     const newsId = req.params.id;
     const news = await News.findById(newsId);

@@ -2,7 +2,7 @@
   border-radius: 0.5rem;
   border: 1px solid #ddd;
   color: $color-grey;
-  background-color: rgb(233, 233, 233);
+  background-color: rgb(246, 244, 244);
   padding: 4rem;
   & > * {
     margin-bottom: 2rem;
@@ -27,7 +27,8 @@
       font-size: 2rem;
     }
     input,
-    select {
+    select,
+    textarea {
       width: 100%;
       padding: 1rem;
       border-radius: 0.5rem;

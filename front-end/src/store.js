@@ -8,10 +8,13 @@ import {
   newsWriteReducer,
 } from "./reducers/newsReducers";
 import {
+  userDeleteReducer,
   userDetailsReducer,
+  userListReducer,
   userRegisterReducer,
   userSignInReducer,
   userUpdateProfileReducer,
+  userUpdateReducer,
 } from "./reducers/userReducers";
 
 const initialState = {
@@ -31,6 +34,9 @@ const reducer = combineReducers({
   newsWrite: newsWriteReducer,
   newsUpdate: newsUpdateReducer,
   newsDelete: newsDeleteReducer,
+  userList: userListReducer,
+  userDelete: userDeleteReducer,
+  userUpdate: userUpdateReducer,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(

@@ -12,6 +12,7 @@ export default function UpdateProfile(props) {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [email, setEmail] = useState("");
+  const [aboutWriter, setAboutWriter] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -42,11 +43,9 @@ export default function UpdateProfile(props) {
           country,
           email,
           password,
+          aboutWriter,
         })
       );
-      if (successUpdate) {
-        props.history.push("/profile");
-      }
     }
   };
   useEffect(() => {
@@ -60,8 +59,14 @@ export default function UpdateProfile(props) {
       setCity(user.city);
       setCountry(user.country);
       setEmail(user.email);
+      if (user.writer) {
+        setAboutWriter(user.writer.about);
+      }
     }
-  }, [dispatch, userInfo, user]);
+    if (successUpdate) {
+      props.history.push("/profile");
+    }
+  }, [dispatch, userInfo, user, successUpdate, props.history]);
 
   return loading ? (
     <Loading />
@@ -170,6 +175,21 @@ export default function UpdateProfile(props) {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
+        {user.isWriter && (
+          <>
+            <div className="form__inputBox">
+              <h1>Writer</h1>
+              <label htmlFor="writerAbout">About Writer</label>
+              <textarea
+                rows="5"
+                id="writerAbout"
+                placeholder="About Writer..."
+                value={aboutWriter}
+                onChange={(e) => setAboutWriter(e.target.value)}
+              />
+            </div>
+          </>
+        )}
         <div className="form__inputBox">
           <label />
           <button type="submit">Update</button>

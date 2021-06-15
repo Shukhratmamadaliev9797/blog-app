@@ -12,7 +12,7 @@ export default function BlogScreen(props) {
   useEffect(() => {
     dispatch(detailsNews(props.match.params.id));
   }, [dispatch, props]);
-
+  console.log(news);
   return loading ? (
     <Loading />
   ) : error ? (
@@ -45,7 +45,7 @@ export default function BlogScreen(props) {
             <p>{news.paragraph2}</p>
           </div>
         )}
-
+        <div></div>
         <hr />
       </div>
     </div>
