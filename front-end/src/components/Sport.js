@@ -28,6 +28,7 @@ export default function Sport() {
         <ul>
           {newsList
             .filter((news) => news.category === "sports")
+            .slice(0, 5)
             .map((news) => {
               return (
                 <li key={news._id}>

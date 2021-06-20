@@ -28,6 +28,7 @@ export default function World() {
         <ul>
           {newsList
             .filter((news) => news.category === "world")
+            .slice(0, 5)
             .map((news) => {
               return (
                 <li key={news._id}>

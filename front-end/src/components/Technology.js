@@ -28,6 +28,7 @@ export default function Technology() {
         <ul>
           {newsList
             .filter((news) => news.category === "technology")
+            .slice(0, 5)
             .map((news) => {
               return (
                 <li key={news._id}>
