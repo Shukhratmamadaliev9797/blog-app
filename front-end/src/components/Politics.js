@@ -28,7 +28,7 @@ export default function Politics() {
         <ul>
           {newsList
             .filter((news) => news.category === "Politics")
-            .slice(0, 5)
+            .slice(0, 4)
             .map((news) => {
               return (
                 <li key={news._id}>
