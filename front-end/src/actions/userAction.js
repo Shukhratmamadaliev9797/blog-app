@@ -49,52 +49,6 @@ export const updateProfile = (user) => {
   };
 };
 
-export const detailsUser = (userId) => {
-  return async (dispatch, getState) => {
-    dispatch({ type: USER_DETAILS_REQUEST, payload: userId });
-    const {
-      userSignIn: { userInfo },
-    } = getState();
-    try {
-      const { data } = await axios.get(`/api/users/${userId}`, {
-        headers: { Authorization: `Bearer ${userInfo.token}` },
-      });
-      dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
-    } catch (error) {
-      dispatch({
-        type: USER_DETAILS_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      });
-    }
-  };
-};
-
-// export const detailsWriter = (newsId) => {
-//   return async (dispatch, getState) => {
-//     dispatch({ type: USER_DETAILS_REQUEST, payload: userId });
-//     const {
-//       userSignIn: { userInfo },
-//     } = getState();
-//     try {
-//       const { data } = await axios.get(`/api/users/${userId}`, {
-//         headers: { Authorization: `Bearer ${userInfo.token}` },
-//       });
-//       dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
-//     } catch (error) {
-//       dispatch({
-//         type: USER_DETAILS_FAIL,
-//         payload:
-//           error.response && error.response.data.message
-//             ? error.response.data.message
-//             : error.message,
-//       });
-//     }
-//   };
-// };
-
 export const register = (
   firstName,
   lastName,
@@ -161,6 +115,29 @@ export const signout = () => {
     localStorage.removeItem("userInfo");
     dispatch({ type: USER_SIGNOUT });
     document.location.href = "/signin";
+  };
+};
+
+export const detailsUser = (userId) => {
+  return async (dispatch, getState) => {
+    dispatch({ type: USER_DETAILS_REQUEST, payload: userId });
+    const {
+      userSignIn: { userInfo },
+    } = getState();
+    try {
+      const { data } = await axios.get(`/api/users/${userId}`, {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      });
+      dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: USER_DETAILS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
   };
 };
 

@@ -1,5 +1,6 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
+
 import data from "../data.js";
 import News from "../models/newsModel.js";
 import { isAdminOrWriter, isAdmin, isAuth } from "../utils.js";
@@ -8,12 +9,76 @@ const newsRouter = express.Router();
 newsRouter.get(
   "/",
   expressAsyncHandler(async (req, res) => {
+    const title = req.query.title || "";
+    const category = req.query.category || "";
     const writer = req.query.writer || "";
+    const titleFilter = title
+      ? { title: { $regex: title, $options: "i" } }
+      : {};
     const writerFilter = writer ? { writer } : {};
-    const newsList = await News.find({ ...writerFilter });
+    const categoryFilter = category ? { category } : {};
+    const newsList = await News.find({
+      ...writerFilter,
+      ...titleFilter,
+      ...categoryFilter,
+    }).populate("writer");
     res.send(newsList);
   })
 );
+
+newsRouter.get(
+  "/latest",
+  expressAsyncHandler(async (req, res) => {
+    const newsList = await News.find({});
+    const latest = newsList.reverse();
+    res.send(latest);
+  })
+);
+
+newsRouter.get(
+  "/category/:category",
+  expressAsyncHandler(async (req, res) => {
+    const category = req.params.category;
+    const newsList = await News.find({});
+    const filteredNews = newsList.filter((news) => news.category === category);
+    if (filteredNews) {
+      res.send(filteredNews);
+    } else {
+      res.status(404).send({ message: "News not found" });
+    }
+  })
+);
+
+newsRouter.get(
+  "/related/:id",
+  expressAsyncHandler(async (req, res) => {
+    const newsList = await News.find({});
+    const news = await News.findById(req.params.id);
+    const related = newsList.filter((n) => n.category === news.category);
+
+    res.send(related);
+  })
+);
+
+newsRouter.get(
+  "/notrelated/:id",
+  expressAsyncHandler(async (req, res) => {
+    const newsList = await News.find({});
+    const news = await News.findById(req.params.id);
+    const related = newsList.filter((n) => n.category !== news.category);
+
+    res.send(related);
+  })
+);
+
+newsRouter.get(
+  "/categories",
+  expressAsyncHandler(async (req, res) => {
+    const categories = await News.find().distinct("category");
+    res.send(categories);
+  })
+);
+
 newsRouter.get(
   "/seed",
   expressAsyncHandler(async (req, res) => {
@@ -26,7 +91,7 @@ newsRouter.get(
 newsRouter.get(
   "/:id",
   expressAsyncHandler(async (req, res) => {
-    const news = await News.findById(req.params.id);
+    const news = await News.findById(req.params.id).populate("writer");
     if (news) {
       res.send(news);
     } else {
@@ -93,4 +158,28 @@ newsRouter.delete(
     }
   })
 );
+
+newsRouter.post(
+  "/:id/comments",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const newsId = req.params.id;
+    const news = await News.findById(newsId);
+    if (news) {
+      const comment = {
+        name: req.body.name,
+        comment: req.body.comment,
+      };
+      news.comments.push(comment);
+      const updatedNews = await news.save();
+      res.status(201).send({
+        message: "Comment Created",
+        comment: updatedNews.comments[updatedNews.comments.length - 1],
+      });
+    } else {
+      res.status(404).send({ message: "News Not Found" });
+    }
+  })
+);
+
 export default newsRouter;

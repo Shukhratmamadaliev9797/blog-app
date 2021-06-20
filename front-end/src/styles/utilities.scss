@@ -11,3 +11,20 @@ a {
   text-decoration: none;
   font-size: $size-link;
 }
+
+.title {
+  display: flex;
+  align-items: center;
+  margin-top: 6rem;
+  margin-bottom: 2rem;
+
+  h1 {
+    margin-right: 1rem;
+    font-size: 3rem;
+  }
+  &-line {
+    background-color: $color-primary;
+    height: 2px;
+    width: 100%;
+  }
+}

@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SearchBox from "./SearchBox";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../actions/userAction";
+import { listNewsCategories } from "../actions/newsAction";
 
 export default function Navbar() {
   const dispatch = useDispatch();
   const userSignIn = useSelector((state) => state.userSignIn);
   const { userInfo } = userSignIn;
 
+  const newsCategoriesList = useSelector((state) => state.newsCategoriesList);
+  const { loading, error, categories } = newsCategoriesList;
+
   const signOutHandler = () => {
     dispatch(signout());
   };
+
+  useEffect(() => {
+    dispatch(listNewsCategories());
+  }, [dispatch]);
 
   return (
     <div className="navbar">
@@ -25,7 +33,9 @@ export default function Navbar() {
           </div>
         </div>
         <div>
-          <SearchBox />
+          <Route
+            render={({ history }) => <SearchBox history={history} />}
+          ></Route>
         </div>
         <div className="navbar__top-menu">
           <ul>
@@ -83,29 +93,21 @@ export default function Navbar() {
         </div>
       </div>
       <div className="navbar__bottom">
-        <ul>
-          <li>
-            <Link to="/">Latest</Link>
-          </li>
-          <li>
-            <Link to="/">Popular</Link>
-          </li>
-          <li>
-            <Link to="/">Business</Link>
-          </li>
-          <li>
-            <Link to="/">Politics</Link>
-          </li>
-          <li>
-            <Link to="/">Tech</Link>
-          </li>
-          <li>
-            <Link to="/">Science</Link>
-          </li>
-          <li>
-            <Link to="/">More...</Link>
-          </li>
-        </ul>
+        {loading ? (
+          "loading"
+        ) : error ? (
+          error
+        ) : (
+          <ul>
+            {categories.map((c) => {
+              return (
+                <li key={c}>
+                  <Link to={`/search/category/${c}`}>{c}</Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
     </div>
   );

@@ -68,7 +68,7 @@ export default function NewsEditScreen(props) {
     bodyFormData.append("image", file);
     setLoadingUpload(true);
     try {
-      const { data } = await axios.post("/api/uploads", bodyFormData, {
+      const { data } = await axios.post("/api/uploads/s3", bodyFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${userInfo.token}`,
@@ -87,7 +87,7 @@ export default function NewsEditScreen(props) {
     bodyFormatData.append("image", file);
     setLoadingUpload(true);
     try {
-      const { data } = await axios.post("/api/uploads", bodyFormatData, {
+      const { data } = await axios.post("/api/uploads/s3", bodyFormatData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${userInfo.token}`,
@@ -132,7 +132,7 @@ export default function NewsEditScreen(props) {
             <select
               id="category"
               value={category}
-              onChange={(e) => setCategory(category)}
+              onChange={(e) => setCategory(e.target.value)}
               required
             >
               <option value="" disabled selected>
@@ -170,12 +170,7 @@ export default function NewsEditScreen(props) {
           </div>
           <div className="newsEdit__newsForm__inputBox">
             <label htmlFor="imageFile1">Image file 1</label>
-            <input
-              id="imageFile1"
-              type="file"
-              onChange={uploadImageHandler1}
-              required
-            />
+            <input id="imageFile1" type="file" onChange={uploadImageHandler1} />
           </div>
           <div className="newsEdit__newsForm__inputBox">
             {loadingUpload && "Image Uploading"}

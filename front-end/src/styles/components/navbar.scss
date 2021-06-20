@@ -5,7 +5,7 @@
     align-items: center;
     padding: 2rem 3rem;
     a {
-      color: $color-grey;
+      color: $color-title;
     }
     &-logoBox {
       display: flex;
@@ -69,6 +69,7 @@
         margin-left: 5rem;
         a {
           color: #fff;
+          text-transform: capitalize;
         }
       }
     }

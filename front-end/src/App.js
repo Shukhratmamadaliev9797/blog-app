@@ -12,6 +12,7 @@ import NewsEditScreen from "./pages/NewsEditScreen";
 import NewsList from "./pages/NewsList";
 import ProfileScreen from "./pages/ProfileScreen";
 import RegisterScree from "./pages/RegisterScreen";
+import SearchScreen from "./pages/SearchScreen";
 import SignInScreen from "./pages/SignInScreen";
 import UpdateProfile from "./pages/UpdateProfile";
 import UserEditScreen from "./pages/UserEditScreen";
@@ -31,6 +32,18 @@ export default function App() {
           <Route path="/profile" exact component={ProfileScreen} />
           <Route path="/news/:id/edit" exact component={NewsEditScreen} />
           <Route path="/userlist" exact component={UserListScreen} />
+          <Route path="/search/title/:title?" exact component={SearchScreen} />
+          <Route
+            path="/search/category/:category"
+            exact
+            component={SearchScreen}
+          />
+          <Route
+            path="/search/category/:category/name/:name"
+            exact
+            component={SearchScreen}
+          />
+
           <WriterRoute path="/newslist/writer" component={NewsList} />
           <AdminRoute path="/user/:id/edit" exact component={UserEditScreen} />
           <PrivateRoute path="/updateprofile" exact component={UpdateProfile} />

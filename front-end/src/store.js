@@ -1,11 +1,17 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from "redux-thunk";
 import {
+  newsCategoriesListReducer,
+  newsCategoryReducer,
+  newsCommentWriteReducer,
   newsDeleteReducer,
   newsDetailsReducer,
+  newsLatestReducer,
   newsListReducer,
+  newsRelatedReducer,
   newsUpdateReducer,
   newsWriteReducer,
+  notNewsRelatedReducer,
 } from "./reducers/newsReducers";
 import {
   userDeleteReducer,
@@ -37,6 +43,12 @@ const reducer = combineReducers({
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
+  newsCategoriesList: newsCategoriesListReducer,
+  newsCommentWrite: newsCommentWriteReducer,
+  newsLatest: newsLatestReducer,
+  newsRelated: newsRelatedReducer,
+  newsNotRelated: notNewsRelatedReducer,
+  newsCategory: newsCategoryReducer,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
